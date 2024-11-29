@@ -27,7 +27,7 @@
 					:zen-editor="true"
 					:custom-menu="customMenu"
 					@init="sheetInit"
-					@dispose="dispose"
+					@destroy="destroy"
 					@commandExecuted="onCommandExecuted"
 					@selectionChange="selectionChange"
 					@cellDataChange="cellDataChange"
@@ -136,8 +136,8 @@ export default {
 		sheetInit(instance) {
 			this.instance = instance;
 		},
-		dispose() {
-			console.log('dispose')
+		destroy() {
+			console.log('destroy')
 		},
 		selectionChange(value) {
 			console.log('vue2 selectionChange', value)

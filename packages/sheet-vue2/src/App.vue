@@ -85,7 +85,7 @@ export default {
     }
   },
 	emits: [
-		'init', 'dispose',
+		'init', 'destroy',
 		'beforeCommandExecute', 'commandExecuted', 
 		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'beforeCellEdit',
 		'selectionChange',
@@ -97,7 +97,7 @@ export default {
   },
   beforeDestroy() {
     this.sheetInstance?.dispose();
-		this.$emit('dispose');
+		this.$emit('destroy');
   },
 }
 </script>

@@ -81,7 +81,7 @@ export default defineComponent({
 		}
 	},
 	emits: [
-		'init', 'dispose',
+		'init', 'destroy',
 		'beforeCommandExecute', 'commandExecuted', 
 		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'beforeCellEdit',
 		'selectionChange'
@@ -106,7 +106,7 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
 			sheetInstance.value?.dispose();
-			emit('dispose');
+			emit('destroy');
 		});
 
     return {

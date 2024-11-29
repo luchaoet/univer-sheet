@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.0.0-alpha.2",
+  "npmClient": "pnpm",
+  "packages": [
+    "packages/sheet-core",
+    "packages/sheet-vue2",
+    "packages/sheet-vue3"
+  ]
+}

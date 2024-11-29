@@ -1,0 +1,22 @@
+{
+  "name": "sheet-vue2-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@xquant/sheet-vue2": "workspace:*",
+    "@xquant/sheet-core": "workspace:*",
+    "vue": "2.7.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "2.3.1",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.11",
+    "vue-tsc": "^2.1.8"
+  }
+}

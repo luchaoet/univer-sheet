@@ -1,0 +1,41 @@
+{
+  "name": "@xquant/sheet-core",
+  "private": false,
+  "version": "1.0.0-alpha.2",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*",
+    "./index.css": "./lib/index.css"
+  },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/types/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@univerjs/core": "0.5.0",
+    "@univerjs/engine-formula": "0.5.0",
+    "@univerjs/engine-render": "0.5.0",
+    "@univerjs/presets": "0.5.0",
+    "@univerjs/sheets": "0.5.0",
+    "@univerjs/sheets-crosshair-highlight": "0.5.0",
+    "@univerjs/sheets-zen-editor": "0.5.0",
+    "@univerjs/ui": "0.5.0",
+    "@univerjs/watermark": "0.5.0",
+    "react": "^18.3.1",
+    "rxjs": "^7.8.1",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "vite": "^6.0.1"
+  },
+  "gitHead": "00b03f599c035d86cebfc3e6d63212cbefe68463"
+}

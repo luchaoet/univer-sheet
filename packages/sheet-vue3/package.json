@@ -1,0 +1,34 @@
+{
+  "name": "@xquant/sheet-vue3",
+  "private": false,
+  "version": "1.0.0-alpha.2",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/types/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@xquant/sheet-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
+    "vue-tsc": "^2.1.8"
+  },
+  "gitHead": "00b03f599c035d86cebfc3e6d63212cbefe68463"
+}

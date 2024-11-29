@@ -20,6 +20,13 @@ export class SheetCore extends SheetCoreBase {
       this.getActiveWorkbook()?.onSelectionChange((selections: IRange[]) => {
         emit('selectionChange', selections);
       })
+      this.getActiveWorkbook()?.onCellHover((cell) => {
+        emit('cellHover', cell)
+      })
+      this.getActiveWorkbook()?.onCellClick((cell) => {
+        emit('cellClick', cell)
+      })
+
       this.getSheetHooks()?.onCellPointerMove((cellPos) => {
         emit('cellPointerMove', cellPos)
       })
@@ -32,17 +39,16 @@ export class SheetCore extends SheetCoreBase {
       this.getSheetHooks()?.onCellDrop((cellPos) => {
         emit('cellDrop', cellPos)
       })
-      this.getActiveWorkbook()?.onCellHover((cell) => {
-        emit('cellHover', cell)
-      })
-      this.getActiveWorkbook()?.onCellClick((cell) => {
-        emit('cellClick', cell)
-      })
+      
       this.getSheetHooks()?.onBeforeCellEdit((params) => {
         emit('beforeCellEdit', params)
       })
       this.getSheetHooks()?.onAfterCellEdit((params) => {
         emit('beforeCellEdit', params)
+      })
+
+      this.getActiveSheet()?.onCellDataChange((params) => {
+        emit('cellDataChange', params)
       })
     }
   }

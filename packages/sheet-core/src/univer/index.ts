@@ -4,7 +4,7 @@ import type { PluginCtor, Plugin, IWorkbookData } from '@univerjs/core';
 import { UniverSheetsCorePreset } from '@univerjs/presets/preset-sheets-core';
 // import { setUniverMap, getUniverMap } from './map'
 import { getTheme } from './theme'
-import { UnitOptions, SheetInstance } from '../types'
+import { UnitOptions } from '../types'
 import { getLocales, getLocale } from './locales'
 import { UniverSheetsFilterPreset } from '@univerjs/presets/preset-sheets-filter';
 import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort';
@@ -28,7 +28,7 @@ export {
   SheetCore
 }
 
-export function createUniver(container: HTMLElement, data: Partial<IWorkbookData> | false, options: UnitOptions = {}, emit?: Function): SheetCore {
+export function createUniver(container: HTMLElement, data: Partial<IWorkbookData>, options: UnitOptions = {}, emit?: Function): SheetCore {
   const locale = getLocale(options.locale || 'ZH_CN');
   const locales = getLocales(locale, {formulaCustom: {}}, {formulaCustom: {}});
   const theme = getTheme(options.theme || "default");
@@ -65,7 +65,7 @@ export function createUniver(container: HTMLElement, data: Partial<IWorkbookData
     presets,
     plugins,
   })
-  univerAPI.createUniverSheet({});
+  univerAPI.createUniverSheet(data);
 
   const api = new SheetCore(univer, univerAPI, emit)
   console.log('api', api)

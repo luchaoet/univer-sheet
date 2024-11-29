@@ -65,23 +65,3 @@ export type UnitOptions = {
   plugins?: Array<typeof Plugin>,
   customMenu?: CustomMenuType,
 }
-
-export type SheetInstance = {
-  univer: Univer,
-  univerAPI: FUniver,
-  save: () => IWorkbookData | null,
-  dispose: () => void,
-  createSheet: (data: Partial<unknown>) => UnitModel<object, number>,
-  getSheetHooks: () => FSheetHooks,
-  getActiveSheet: () => FWorksheet | null,
-  getActiveWorkbook: () => FWorkbook | null,
-  getRange: (startRow: number, startColumn: number, endRow?: number, endColumn?: number) => FRange | null,
-  getSelection: () => FSelection | null,
-  getActiveRange: () => FRange | null,
-  getFreeze: () => IFreeze | null,
-  getFrozenRows: () => number | null,
-  getFrozenColumns: () => number | null,
-  setFrozenRows: (rows: number) => void,
-  setFrozenColumns: (columns: number) => void,
-  cancelFreeze: () => void,
-}

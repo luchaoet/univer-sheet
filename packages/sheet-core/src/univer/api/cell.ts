@@ -8,7 +8,10 @@ export class SheetCoreCell extends SheetCoreBase {
   exitEditMode () {
     // 退出编辑模式
   }
-  setCellFormat () {
+  setCellFormat(row: number, column: number, format: string) {
+    const sheet = this.univerAPI.getActiveWorkbook()?.getActiveSheet();
+    const range = sheet?.getRange(row, column);
+    return range ? range.setValue({f: format}) : Promise.resolve(false)
   }
   setCellValue(row: number, column: number, value: CellValue | ICellData): Promise<boolean> {
     const sheet = this.univerAPI.getActiveWorkbook()?.getActiveSheet();

@@ -20,7 +20,7 @@ export default {
 		},
 		data: {
 			type: Object as PropType<Partial<IWorkbookData>>,
-			default: false
+			default: () => ({})
 		},
 		formulaCustom: {
 			type: Object,

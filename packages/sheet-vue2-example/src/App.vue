@@ -4,6 +4,7 @@
 			<template #button>
 				<button @click="handleShow">show/hide</button>
 				<button @click="setData">setData</button>
+				<button @click="getData">getData</button>
 				<button @click="setCellValue">setCellValue</button>
 				<button @click="getCellValue">getCellValue</button>
 			</template>
@@ -29,6 +30,7 @@
 					@dispose="dispose"
 					@commandExecuted="onCommandExecuted"
 					@selectionChange="selectionChange"
+					@cellDataChange="cellDataChange"
 				/>
 			</template>
 		</Box>
@@ -111,11 +113,15 @@ export default {
   // computed: {},
   // watch: {},
   methods: {
+		getData() {
+			const data = this.instance.getData();
+			console.log(data)
+		},
 		setData() {
-			this.instance.createSheet({...DEFAULT_WORKBOOK_DATA_DEMO, id: 1});
+			this.instance.createSheet('Sheet2', 10, 10);
 		},
 		setCellValue() {
-			this.instance.setCellValue(0, 0, 'test')
+			this.instance.setCellFormat(0, 0, '=1+1')
 		},
 		getCellValue() {
 			console.log(this.instance.getCellValue(0, 0))
@@ -125,7 +131,7 @@ export default {
 			
 		},
 		onCommandExecuted(value) {
-			console.log('vue2 onCommandExecuted', value)
+			// console.log('vue2 onCommandExecuted', value)
 		},
 		sheetInit(instance) {
 			this.instance = instance;
@@ -134,8 +140,11 @@ export default {
 			console.log('dispose')
 		},
 		selectionChange(value) {
-				console.log('vue2 selectionChange', value)
-			},
+			console.log('vue2 selectionChange', value)
+		},
+		cellDataChange(value) {
+			console.log('vue2 cellDataChange', value)
+		}
   },
   // created() {},
   mounted() {

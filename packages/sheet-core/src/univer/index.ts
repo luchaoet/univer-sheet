@@ -28,7 +28,7 @@ export {
   SheetCore
 }
 
-export function createUniver(container: HTMLElement, data: Partial<IWorkbookData>, options: UnitOptions = {}, emit?: Function): SheetCore {
+export function createUniverSheet(container: HTMLElement, data: Partial<IWorkbookData> | false, options: UnitOptions = {}, emit?: Function): SheetCore {
   const locale = getLocale(options.locale || 'ZH_CN');
   const locales = getLocales(locale, {formulaCustom: {}}, {formulaCustom: {}});
   const theme = getTheme(options.theme || "default");
@@ -44,9 +44,7 @@ export function createUniver(container: HTMLElement, data: Partial<IWorkbookData
     options.hyperLink && UniverSheetsHyperLinkPreset(),
     options.comment && UniverSheetsThreadCommentPreset(),
     options.findReplace && UniverSheetsFindReplacePreset(),
-    options.advanced && UniverSheetsAdvancedPreset({
-      universerEndpoint: 'http://localhost:3010',
-    })
+    options.print && UniverSheetsAdvancedPreset()
   ].filter(i => !!i);
 
   const optionPlugins = options?.plugins || [];
@@ -65,8 +63,10 @@ export function createUniver(container: HTMLElement, data: Partial<IWorkbookData
     presets,
     plugins,
   })
-  univerAPI.createUniverSheet(data);
-
+  // 如果传递了数据就初始表格
+  if (data) {
+    univerAPI.createUniverSheet(data);
+  }
   const api = new SheetCore(univer, univerAPI, emit)
   console.log('api', api)
   return api

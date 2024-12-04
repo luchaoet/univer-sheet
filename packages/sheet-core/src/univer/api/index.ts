@@ -44,7 +44,7 @@ export class SheetCore extends SheetCoreBase {
         emit('beforeCellEdit', params)
       })
       this.getSheetHooks()?.onAfterCellEdit((params) => {
-        emit('beforeCellEdit', params)
+        emit('afterCellEdit', params)
       })
 
       this.getActiveSheet()?.onCellDataChange((params) => {

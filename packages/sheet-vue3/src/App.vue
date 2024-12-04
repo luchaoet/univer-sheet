@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, reactive, onMounted, ref, onBeforeUnmount, watch } from "vue";
-import { createUniver, IWorkbookData } from '@xquant/sheet-core'
+import { createUniverSheet, IWorkbookData } from '@xquant/sheet-core'
 import type { Locale, UnitOptions, CustomMenuType, SheetCore } from "@xquant/sheet-core";
 import type { PropType } from "vue";
 
@@ -21,7 +21,7 @@ export default defineComponent({
 		},
 		data: {
 		  type: Object as PropType<Partial<IWorkbookData>>,
-			default: false
+			default: () => ({}),
 		},
 		formulaCustom: {
 			type: Object,
@@ -30,10 +30,6 @@ export default defineComponent({
 		componentRegister: {
 			type: Object,
 			default: () => ({}),
-		},
-		numfmt: {
-			type: Boolean,
-			default: false,
 		},
 		conditionalFormatting: {
 			type: Boolean,
@@ -53,7 +49,7 @@ export default defineComponent({
 		},
 		sort: {
 			type: Boolean,
-			default: false,
+			default: true,
 		},
 		filter: {
 			type: Boolean,
@@ -67,7 +63,7 @@ export default defineComponent({
 			type: Boolean,
 			default: false,
 		},
-		advanced: {
+		print: {
 			type: Boolean,
 			default: false,
 		},
@@ -81,17 +77,17 @@ export default defineComponent({
 		}
 	},
 	emits: [
-		'init', 'destroy',
+		'init', 'dispose',
 		'beforeCommandExecute', 'commandExecuted', 
-		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'beforeCellEdit',
+		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'afterCellEdit',
 		'selectionChange'
 	],
-  setup(props, { emit }: {emit: Function}) {
+  setup(props: UnitOptions, { emit }: {emit: Function}) {
     const state = reactive({})
     const methods = reactive({})
 
     const sheet = ref()
-    let sheetInstance
+    let sheetInstance:SheetCore;
 
 		watch(() => props.data, (v) => {
 			sheetInstance?.createWorkbook(v)
@@ -99,14 +95,14 @@ export default defineComponent({
 
     onMounted(() => {
 			const { data, ...options} = props;
-      const univer = createUniver(sheet.value, data, options, emit);
+      const univer = createUniverSheet(sheet.value, data, options, emit);
 			sheetInstance = univer;
 			emit('init', univer)
     })
 
     onBeforeUnmount(() => {
 			sheetInstance.value?.dispose();
-			emit('destroy');
+			emit('dispose');
 		});
 
     return {

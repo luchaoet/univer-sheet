@@ -7,6 +7,8 @@
 				<button @click="getData">getData</button>
 				<button @click="setCellValue">setCellValue</button>
 				<button @click="getCellValue">getCellValue</button>
+				<button @click="clearCell">clearCell</button>
+				
 			</template>
 			<template #content>
 				<univer-sheet 
@@ -16,21 +18,21 @@
 					locale="ZH_CN" 
 					:sort="true"
 					:filter="true"
-					:numfmt="true"
 					:comment="true"
 					:hyper-link="true"
 					:find-replace="true"
 					:crosshair-highlight="true"
 					:conditional-formatting="true"
 					:watermark="true"
-					:advanced="true"
+					:print="true"
 					:zen-editor="true"
 					:custom-menu="customMenu"
+					:data="{}"
 					@init="sheetInit"
 					@destroy="destroy"
 					@commandExecuted="onCommandExecuted"
 					@selectionChange="selectionChange"
-					@cellDataChange="cellDataChange"
+					@afterCellEdit="afterCellEdit"
 				/>
 			</template>
 		</Box>
@@ -65,7 +67,7 @@ export default {
 						commandType: CommandType.OPERATION,
 						menuItemType: MenuItemType.BUTTON,
 						handler: async (accessor: IAccessor) => {
-							console.log('Single button operation111', accessor);
+							console.log('Single button operation', accessor);
 							return true;
 						},
 						icon: `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -94,7 +96,7 @@ export default {
 						commandType: CommandType.OPERATION,
 						menuItemType: MenuItemType.BUTTON,
 						handler: async (accessor: IAccessor) => {
-							console.log('Single button operation111', accessor);
+							console.log('Single button operation', accessor);
 							return true;
 						},
 						icon: `<svg t="1732764911638" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3243" width="1em" height="1em"><path d="M204.8 716.8h614.4v153.6H204.8z" fill="#FFD6B2" p-id="3244"></path><path d="M819.2 102.4a51.2 51.2 0 0 1 51.2 51.2v716.8a51.2 51.2 0 0 1-45.21 50.842l-5.99 0.358H204.8a51.2 51.2 0 0 1-51.2-51.2V153.6a51.2 51.2 0 0 1 51.2-51.2h614.4z m0 614.4H204.8v153.6h614.4V716.8z m-256 51.2v51.2H460.8V768h102.4z m256-614.4H204.8v512h614.4v-512z" fill="#FF7700" p-id="3245"></path></svg>`,
@@ -114,14 +116,17 @@ export default {
   // watch: {},
   methods: {
 		getData() {
-			const data = this.instance.getData();
+			const data = this.instance.getSheetDataByName('Sheet2');
 			console.log(data)
 		},
 		setData() {
 			this.instance.createSheet('Sheet2', 10, 10);
 		},
 		setCellValue() {
-			this.instance.setCellFormat(0, 0, '=1+1')
+			this.instance.setRangeFormat(0, 0,2,2, '=1+1')
+		},
+		clearCell() {
+			this.instance.clearCell(0, 0)
 		},
 		getCellValue() {
 			console.log(this.instance.getCellValue(0, 0))
@@ -142,8 +147,8 @@ export default {
 		selectionChange(value) {
 			console.log('vue2 selectionChange', value)
 		},
-		cellDataChange(value) {
-			console.log('vue2 cellDataChange', value)
+		afterCellEdit(value) {
+			console.log('vue2 afterCellEdit', value)
 		}
   },
   // created() {},

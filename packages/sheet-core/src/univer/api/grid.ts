@@ -20,7 +20,7 @@ export class SheetCoreGrid extends SheetCoreBase {
     const activeSheet = this.getActiveSheet();
     return activeSheet ? activeSheet.insertRowBefore(beforePosition) : Promise.reject()
   }
-  insertRows(rowIndex: number, numRows: number = 1) {
+  insertRows(rowIndex: number, numRows: number = 1): Promise<FWorksheet> {
     const activeSheet = this.getActiveSheet();
     return activeSheet ? activeSheet.insertRows(rowIndex, numRows) : Promise.reject()
   }
@@ -70,9 +70,10 @@ export class SheetCoreGrid extends SheetCoreBase {
     return activeSheet ? activeSheet.deleteColumns(columnPosition, howMany) : Promise.reject()
   }
 
-  hideRow(row: FRange): Promise<FWorksheet> {
+  hideRow(startRow: number, startColumn: number, endRow?: number, endColumn?: number): Promise<FWorksheet> {
     const activeSheet = this.getActiveSheet();
-    return activeSheet ? activeSheet.hideRow(row) : Promise.reject()
+    const range = activeSheet?.getRange(startRow, startColumn, endRow || startRow, endColumn || startColumn);
+    return activeSheet && range ? activeSheet.hideRow(range) : Promise.reject()
   }
   hideRows(rowIndex: number, numRows: number = 1): Promise<FWorksheet> {
     const activeSheet = this.getActiveSheet();
@@ -125,7 +126,7 @@ export class SheetCoreGrid extends SheetCoreBase {
     const activeSheet = this.getActiveSheet();
     return activeSheet?.setFreeze(freeze) || false
   }
-  cancelFreeze() {
+  cancelFreeze(): boolean {
     const activeSheet = this.getActiveSheet();
     return activeSheet?.cancelFreeze() || false
   }

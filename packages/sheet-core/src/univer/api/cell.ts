@@ -24,6 +24,6 @@ export class SheetCoreCell extends SheetCoreBase {
     return range ? range.getValue() : null;
   }
   clearCell(row: number, column: number) {
-    this.setCellValue(row, column, '')
+    this.setCellValue(row, column, {v: null})
   }
 }

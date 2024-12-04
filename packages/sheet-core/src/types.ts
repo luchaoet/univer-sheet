@@ -49,13 +49,12 @@ export type UnitOptions = {
   sort?: boolean
   locale?: Locale
   filter?: boolean
-  numfmt?: boolean
   comment?: boolean
   hyperLink?: boolean
   findReplace?: boolean
   makeCurrent?: boolean
   watermark?: boolean
-  advanced?: boolean
+  print?: boolean
   zenEditor?: boolean
   theme?: string | object
   crosshairHighlight?: boolean

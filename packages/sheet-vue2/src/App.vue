@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import {createUniver, IWorkbookData } from '@xquant/sheet-core'
+import {createUniverSheet, IWorkbookData } from '@xquant/sheet-core'
 import type { Locale, CustomMenuType, SheetCore } from "@xquant/sheet-core";
 import type { PropType } from "vue";
 
@@ -20,7 +20,7 @@ export default {
 		},
 		data: {
 			type: Object as PropType<Partial<IWorkbookData>>,
-			default: () => ({})
+			default: () => ({}),
 		},
 		formulaCustom: {
 			type: Object,
@@ -29,10 +29,6 @@ export default {
 		componentRegister: {
 			type: Object,
 			default: () => ({}),
-		},
-		numfmt: {
-			type: Boolean,
-			default: false,
 		},
 		conditionalFormatting: {
 			type: Boolean,
@@ -52,7 +48,7 @@ export default {
 		},
 		sort: {
 			type: Boolean,
-			default: false,
+			default: true,
 		},
 		filter: {
 			type: Boolean,
@@ -66,7 +62,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		advanced: {
+		print: {
 			type: Boolean,
 			default: false,
 		},
@@ -85,19 +81,19 @@ export default {
     }
   },
 	emits: [
-		'init', 'destroy',
+		'init', 'dispose',
 		'beforeCommandExecute', 'commandExecuted', 
-		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'beforeCellEdit',
+		'cellClick', 'cellPointerMove', 'cellPointerOver', 'cellDragOver', 'cellDrop', 'cellHover', 'beforeCellEdit', 'afterCellEdit',
 		'selectionChange',
 	],
   mounted() {
-    const univer = createUniver(this.$refs.sheet as HTMLElement, this.data, this.$props, this.$emit.bind(this));
+    const univer = createUniverSheet(this.$refs.sheet as HTMLElement, this.data, this.$props, this.$emit.bind(this));
 		this.sheetInstance = univer;
 		this.$emit('init', univer as SheetCore);
   },
   beforeDestroy() {
     this.sheetInstance?.dispose();
-		this.$emit('destroy');
+		this.$emit('dispose');
   },
 }
 </script>
